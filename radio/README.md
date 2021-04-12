@@ -22,7 +22,7 @@
 
 ### SVG
 - CSS-анимация элементов SVG-контента.
-- CSS-background в виде SVG data-url.
+- img src в виде SVG data-url.
 
 ## TODO
 - Отображение текущей композиции
