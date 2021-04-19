@@ -10,7 +10,8 @@
 - Navbar + fixed-top + toggler.
 - Form: form-check + form-switch.
 - Form: form-select.
-- Helpers: text-truncate.
+- Helpers: Text truncation: text-truncate.
+- Utilities: Visibility: invisible.
 
 ### HTML
 - Тег &lt;abbr&gt;.
