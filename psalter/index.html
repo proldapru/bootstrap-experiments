@@ -32,11 +32,6 @@
 			z-index: 1000;
 		}
 
-		[data-type=header-spacer] {
-			height: 74px !important; /* для [data-type=header] position:fixed */
-		}
-
-
 		[data-type=psalm] {
 			padding-top: 50px;
 			position: relative;
@@ -394,6 +389,7 @@
 	$(document).ready(function() {
 		$('.show-columls-ctrls input').on('change', function(ev) {
 			$('.txt-' + ev.target.id.substr(0, 2)).toggle(ev.target.checked);
+			$(window).trigger('resize');
 		});
 
 		$('.show-columls-ctrls input').each(function(ind, el) {
@@ -422,6 +418,13 @@
 			// Закрыть панель управления
 			$('button.navbar-toggler').trigger('click');
 		});
+
+		$(window).on('resize', function(ev) {
+			if($('[data-type=header]').is(":visible")) $('[data-type=header-spacer]').height($('[data-type=header]').height());
+		});
+
+		// При загрузке отработать события
+		$(window).trigger('resize');
 	});
 </script>
 </body>

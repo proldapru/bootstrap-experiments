@@ -13,6 +13,9 @@
 - Helpers: Text truncation: text-truncate.
 - Utilities: Visibility: invisible.
 
+### jQuery
+- Событие $(window).on('resize').
+
 ### HTML
 - Тег &lt;abbr&gt;.
 
