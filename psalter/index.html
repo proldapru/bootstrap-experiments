@@ -400,6 +400,7 @@
 
 		$('.view-ctrls #noWrapCtrl').on('change', function(ev) {
 			$('body').toggleClass('wrap');
+			$(window).trigger('resize');
 		});
 
 		$('.view-ctrls #colHeadersCtrl').on('change', function(ev) {
@@ -422,7 +423,37 @@
 		});
 
 		$(window).on('resize', function(ev) {
+			// Подстройка высоты подложки под заголовки
 			if($('[data-type=header]').is(":visible")) $('[data-type=header-spacer]').height($('[data-type=header]').height());
+			// Пересчёт высоты абзацей, если стихи выводятся по абзацам
+			if($('body').hasClass('wrap')) {
+				$('[data-type=psalm]:visible').each(function(ind, el) {
+					// Колонки с текстом внутри контейнера псалма
+					let cols = $(el).children(':visible');
+					if(cols.length===1) {
+						cols.children().css('height', '');
+						return;
+					}
+					// Массив максимальных высот строк стихов, первоначально заполняем по первой колонке
+					let lineMaxHeights = cols.first().children().map(function() { return $(this).outerHeight(true); }).get();
+					// console.log(lineMaxHeights);
+					// Определяем максимальную высоту каждой строки стихов среди всех колонок
+					for(let i=1; i<cols.length; i++) {
+						lineMaxHeights = $(cols[i]).children().map(function() { return $(this).outerHeight(); }).get().map((x, ind)=>Math.max(x, lineMaxHeights[ind]));
+						// console.log(lineMaxHeights);
+					}
+					// Назначаем максимальную вычисленную высоту всем строкам стихов
+					for(let i=0; i<lineMaxHeights.length; i++) {
+						for(let j=0; j<cols.length; j++) {
+							$(cols[j]).children().eq(i).outerHeight(lineMaxHeights[i], true);
+						}
+					}
+				});
+			}
+			else {
+				// Сброс всех назначенных высот
+				$('[data-type=psalm]:visible .col:visible').children().css('height', '');
+			}
 		});
 
 		// При загрузке отработать события
