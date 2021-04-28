@@ -73,6 +73,7 @@ combinations*/
 			</h2>
 			<div id="collapse1" class="accordion-collapse collapse show" aria-labelledby="heading1" data-bs-parent="#appSections">
 				<div class="accordion-body">
+					<p class="pb-0">Введите интересующий текст в поле ввода и нажмите кнопку "Показать коды".</p>
 					<div class="input-group input-group-lg mb-3">
 						<input id="codesTestedText" type="text" class="form-control cu" placeholder="Изучаемый текст" aria-label="Изучаемый текст" aria-describedby="button-addon2" autocomplete="off" value="Хрⷭ҇то́съ воскре́се!">
 						<button id="codesShowBtn" class="btn btn-outline-secondary" type="button" id="button-addon2">Показать коды</button>
@@ -88,7 +89,6 @@ combinations*/
 			</h2>
 			<div id="collapse2" class="accordion-collapse collapse" aria-labelledby="heading2" data-bs-parent="#appSections">
 				<div class="accordion-body">
-				    <h4>Общие случаи</h4>
 					<p class="pb-0">Для копирования в буфер обмена нажмите на букву или номер Unicode-кода.</p>
 					<table class="table table-bordered vowels">
 						<thead>
@@ -107,21 +107,6 @@ combinations*/
 						</thead>
 						<tbody></tbody>
 					</table>
-				    <h4>Специальные случаи</h4>
-					<p class="pb-0">Для копирования в буфер обмена нажмите на букву или номер Unicode-кода.</p>
-					<table class="table table-bordered vowels2">
-						<thead>
-							<tr>
-								<th scope="col">Название</th>
-								<th scope="col">Буква</th>
-								<th scope="col">Кра́тка<u>0306</u></th>
-								<th scope="col"><abbr title="Острое ударение">Окси́я</abbr><u>0301</u></th>
-								<th scope="col"><abbr title="Тонкое придыхание">Зва́тельцо</abbr><u>0486</u></th>
-								<th scope="col"><abbr title="Зва́тельцо + Окси́я">И́со</abbr><u>0486+0301</u></th>
-								<th scope="col"><abbr title="Кенде́ма">Смыче́ц</abbr><u>030F</u></th>
-							</tr>
-						</thead>
-						<tbody></tbody>
 					</table>
 				</div>
 			</div>
@@ -206,22 +191,20 @@ combinations*/
 			{name:'є҆́сть широ́кое', tr:'е', unicode:['0404', '0454'], dm:'all'},
 			{name:'ꙗ҆́ть', tr:'е', unicode:['0462', '0463'], dm:'all'},
 			{name:'и҆́же', tr:'и', unicode:['0418', '0438'], dm:'all'},
+			{name:'и҆́же кра́ткое', tr:'й', unicode:['0418+0306', '0438+0306'], comment:'Буква и҆́же со знаком кра́тка', dm:'none'},
 			{name:'и҆̀', tr:'и', unicode:['0407', '0457'], unicode2:['0406', '0456'], dm:'all'},
 			{name:'ѻ҆́нъ', tr:'о', unicode:['041E', '043E'], dm:'all'},
 			{name:'ѻ҆́нъ широ́кий', tr:'о', unicode:['047A', '047B'], dm:'all'},
 			{name:'ѡ҆ме́га', tr:'о', unicode:['0460', '0461'], dm:'all'},
+			{name:'ѡ҆́тъ', tr:'от', unicode:['047E', '047F'], comment:'Лигатура ѡ҆ме́га + тве́рдо', dm:'none'},
+			{name:'ѡ҆ме́га торжестве́нная', tr:'о', unicode:['047C', '047D'], comment:'Вариант написания буквы ѡ҆ме́га с великим апостро́фом', dm:'none'},
 			{name:'ѻ҆́никъ', tr:'у', unicode:['0478', '0479'], dm:'all'},
 			{name:'ѹ҆́​къ', tr:'у', unicode:['A64A', 'A64B'], dm:'all'},
 			{name:'є҆ры̀', tr:'ы', unicode:['042B', '044B'], dm:'all'},
 			{name:'ю҆̀', tr:'ю', unicode:['042E', '044E'], dm:'all'},
 			{name:'ꙗ҆̀', tr:'я', unicode:['A656', 'A657'], dm:'all'},
-			{name:'ю҆́съ ма́лый', tr:'я', unicode:['0466', '0467'], dm:'all'}
-		],
-		vowels2: [
-		    {name:'и҆́же кра́ткое', tr:'й', unicode:['0418+0306', '0438+0306'], unicode2:['0418', '0438'], comment:'Буква и҆́же с покрытием кра́тка', dm:'10000'},
-		    {name:'ѡ҆́тъ', tr:'от', unicode:['047E', '047F'], comment:'Лигатура ѡ҆ме́га + тве́рдо', dm:'none'},
-		    {name:'ѡ҆ме́га торжестве́нная', tr:'о', unicode:['047C', '047D'], comment:'Вариант напрсания буквы ѡ҆ме́га', dm:'none'},
-		    {name:'ѵ҆́жица', tr:['в', 'и'], unicode:['0474', '0475'], comment:'Без покрытия произносится [в], с покрытием — [и]' , dm:'01111'}
+			{name:'ю҆́съ ма́лый', tr:'я', unicode:['0466', '0467'], dm:'all'},
+			{name:'ѵ҆́жица', tr:['в', 'и'], unicode:['0474+030F', '0475+030F'], unicode2:['0474', '0475'], comment:'Со смычцом, ударениями и придыханиями произносится как [и]' , dm:'all'}
 		],
 		consonants: [
 			{name:'бꙋ́ки', tr:'б', unicode:['0411', '0431'], comment:'', dm:'all'},
