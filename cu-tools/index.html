@@ -52,6 +52,10 @@
 			width: 12%;
 		}
 
+		table.consonants td {
+			width: 7%;
+		}
+
 		.red {
 			color: red;
 		}
@@ -122,6 +126,36 @@ combinations*/
 				</div>
 			</div>
 		</div>
+
+		<div class="accordion-item">
+			<h2 class="accordion-header" id="heading3">
+				<button class="accordion-button fs-3 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">Согласные буквы</button>
+			</h2>
+			<div id="collapse3" class="accordion-collapse collapse" aria-labelledby="heading3" data-bs-parent="#appSections">
+				<div class="accordion-body">
+					<p class="pb-0">Для копирования в буфер обмена нажмите на букву или номер Unicode-кода.</p>
+					<table class="table table-bordered consonants">
+						<thead>
+							<tr>
+								<th scope="col">Название</th>
+								<th scope="col">Буква</th>
+								<th scope="col">Ти́тло<u>0483</u></th>
+								<th scope="col">Добро-титло<u>2DE3</u></th>
+								<th scope="col">Глагол-титло<u>2DE2+0487</u></th>
+								<th scope="col">Он-титло<u>2DEA+0487</u></th>
+								<th scope="col">Рцы-титло<u>2DEC+0487</u></th>
+								<th scope="col">Слово-титло<u>2DED+0487</u></th>
+								<th scope="col">Червь-титло<u>2DF1+0487</u></th>
+								<th scope="col">Земля-титло<u>2DE5</u></th>
+								<th scope="col">Хер-титло<u>2DEF</u></th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
 <!--
 		<div class="accordion-item">
 			<h2 class="accordion-header" id="heading3">
@@ -147,12 +181,21 @@ combinations*/
 	let specCharNames = {
 		'0020':'пробел',
 		'00ad':'мягкий перенос',
+		'2de2':'выносная буква г',
+		'2de3':'добро-титло',
+		'2de5':'земля-титло',
+		'2dea':'выносная буква о',
+		'2dec':'выносная буква р',
+		'2ded':'выносная буква с',
+		'2def':'хер-титло',
+		'2df1':'выносная буква ч',
 		'0300':'вария',
 		'0301':'оксия',
 		'0306':'кратка',
-		'030F':'смычец',
+		'030F':'смычец (кендема)',
 		'0311':'камора',
-		'0483':'титло',
+		'0483':'титло простое',
+		'0487':'покрытие для буквенного титла',
 		'0485':'дасия',
 		'0486':'звательцо'
 	};
@@ -179,9 +222,36 @@ combinations*/
 		    {name:'ѡ҆́тъ', tr:'от', unicode:['047E', '047F'], comment:'Лигатура ѡ҆ме́га + тве́рдо', dm:'none'},
 		    {name:'ѡ҆ме́га торжестве́нная', tr:'о', unicode:['047C', '047D'], comment:'Вариант напрсания буквы ѡ҆ме́га', dm:'none'},
 		    {name:'ѵ҆́жица', tr:['в', 'и'], unicode:['0474', '0475'], comment:'Без покрытия произносится [в], с покрытием — [и]' , dm:'01111'}
+		],
+		consonants: [
+			{name:'бꙋ́ки', tr:'б', unicode:['0411', '0431'], comment:'', dm:'all'},
+			{name:'вѣ́ди', tr:'в', unicode:['0412', '0432'], dm:'all'},
+			{name:'глаго́ль', tr:'г', unicode:['0413', '0433'], dm:'all'},
+			{name:'добро̀', tr:'д', unicode:['0414', '0434'], dm:'all'},
+			{name:'живѣ́те', tr:'ж', unicode:['0416', '0436'], dm:'all'},
+			{name:'ѕѣлѡ̀', tr:'з', unicode:['0405', '0455'], dm:'all'},
+			{name:'землѧ̀', tr:'з', unicode:['0417', '0437'], dm:'all'},
+			{name:'ка́кѡ', tr:'к', unicode:['041A', '043A'], dm:'all'},
+			{name:'лю́дїє', tr:'л', unicode:['041B', '043B'], dm:'all'},
+			{name:'мыслѣ́те', tr:'м', unicode:['041C', '043C'], dm:'all'},
+			{name:'на́шъ', tr:'н', unicode:['041D', '043D'], dm:'all'},
+			{name:'поко́й', tr:'п', unicode:['041F', '043F'], dm:'all'},
+			{name:'рцы̀', tr:'р', unicode:['0420', '0440'], dm:'all'},
+			{name:'сло́во', tr:'с', unicode:['0421', '0441'], dm:'all'},
+			{name:'тве́рдо', tr:'т', unicode:['0422', '0442'], dm:'all'},
+			{name:'фе́ртъ', tr:'ф', unicode:['0424', '0444'], dm:'all'},
+			{name:'хѣ́ръ', tr:'х', unicode:['0425', '0445'], dm:'all'},
+			{name:'цы̀', tr:'', unicode:['0426', '0446'], dm:'all'},
+			{name:'че́рвь', tr:'ч', unicode:['0427', '0447'], dm:'all'},
+			{name:'ша̀', tr:'ш', unicode:['0428', '0448'], dm:'all'},
+			{name:'ща̀', tr:'щ', unicode:['0429', '0449'], dm:'all'},
+			{name:'є҆́ръ', tr:'', unicode:['042A', '044A'], comment:'Твёрдый знак', dm:'all'},
+			{name:'є҆́рь', tr:'', unicode:['042C', '044C'], comment:'Мягкий знак', dm:'all'},
+			{name:'ксѝ', tr:'кс', unicode:['046E', '046F'], dm:'all'},
+			{name:'псѝ', tr:'пс', unicode:['0470', '0471'], dm:'all'},
+			{name:'ѳита̀', tr:'ф', unicode:['0472', '0473'], dm:'all'},
+			{name:'ѵ҆́жица', tr:'в', unicode:['0474', '0475'], comment:'Произносится как [в], если перед ней стоит буква a или е', dm:'all'}
 		]
-//		consonants: [],
-//		combinations: [] 
 	};
 	$(document).ready(function() {
 		let message = new bootstrap.Toast($('.toast')[0], {delay: 2000});
@@ -203,7 +273,7 @@ combinations*/
 			for(let l of letters[letterType]) {
 				let tableRows = [
 					// первая строка с заголовком <th scope="row" rowspan="2">
-					`<tr><th scope="row" rowspan="2"><abbr class="cu"${ l.comment ? ` title="${l.comment}"` : '' }>${l.name}</abbr> [${ typeof(l.tr)=='string' ? l.tr : l.tr.join('], [')}]<u>${l.unicode[0]}</u><u>${l.unicode[1]}</u></th>`,
+					`<tr><th scope="row" rowspan="2"><abbr class="cu"${ l.comment ? ` title="${l.comment}"` : '' }>${l.name}</abbr>${l.tr ? ' [' + (typeof(l.tr)=='string' ? l.tr : l.tr.join('], [')) + ']' : '' }<u>${l.unicode[0]}</u><u>${l.unicode[1]}</u></th>`,
 					// пустая заготовка под вторую строку
 					'<tr>'
 				];
