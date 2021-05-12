@@ -12,6 +12,8 @@
 - Form: form-select.
 - Helpers: Text truncation: text-truncate.
 - Utilities: Visibility: invisible.
+- Utilities: Flex: d-flex + align-items-center (размещение логотипа).
+- Utilities: Text: fs-4, lh-1 (текст в navbar-brand).
 
 ### jQuery
 - Событие $(window).on('resize').
