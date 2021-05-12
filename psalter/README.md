@@ -7,7 +7,7 @@
 ## Эксперименты
 
 ### Bootstrap
-- Navbar + fixed-top + toggler.
+- Navbar + fixed-top + collapsed panel. Скрытие collapsed panel методом hide().
 - Form: form-check + form-switch.
 - Form: form-select.
 - Helpers: Text truncation: text-truncate.
@@ -15,6 +15,7 @@
 
 ### jQuery
 - Событие $(window).on('resize').
+- Метод nextAll().
 
 ### HTML
 - Тег &lt;abbr&gt;.
