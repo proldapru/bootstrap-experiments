@@ -227,11 +227,9 @@ $(document).ready(function() {
 				}
 				// Массив максимальных высот строк стихов, первоначально заполняем по первой колонке
 				let lineMaxHeights = cols.first().children().map(function() { return $(this).outerHeight(true); }).get();
-				// console.log(lineMaxHeights);
 				// Определяем максимальную высоту каждой строки стихов среди всех колонок
 				for(let i=1; i<cols.length; i++) {
 					lineMaxHeights = $(cols[i]).children().map(function() { return $(this).outerHeight(); }).get().map((x, ind)=>Math.max(x, lineMaxHeights[ind]));
-					// console.log(lineMaxHeights);
 				}
 				// Назначаем максимальную вычисленную высоту всем строкам стихов
 				for(let i=0; i<lineMaxHeights.length; i++) {
@@ -253,14 +251,19 @@ $(document).ready(function() {
 });
 
 function formSectionTextContent(data_sec, num, txt_sec) {
+	// изучаем, есть ли псалма "заголовок"
 	let hasHeader = typeof data[data_sec][num][txt_sec][0]==='string';
+	// в "параллельных местах" обрабатываются названия книг и стихи псалма
 	let verses = txt_sec!=='ln' ?
 		data[data_sec][num][txt_sec][hasHeader ? 1 : 0] :
 		data[data_sec][num][txt_sec][hasHeader ? 1 : 0].map(x=>x==='' ? '' : x.slice(0,-1).split('; ').
 			map(y=>{z = y.split('. '); n = z[1].split(':'); if (z[0]==='Пс' && data.psalms[n[0]]) console.log(n, data.psalms[n[0]]['ru'][hasHeader ? 1 : 0][n[1]-1]);
 				return (data.books[z[0]] ? `<abbr title="${data.books[z[0]]}">${z[0]}.</abbr>` : z[0] + '.') + ' ' +
-				(z[0]==='Пс' && data.psalms[n[0]] ? `<abbr title="${data.psalms[n[0]]['ru'][hasHeader ? 1 : 0][n[1]-1]}">${z[1]}</abbr>`: z[1]);}).join('; ') + '.');
-	return (hasHeader ? `<div>${data[data_sec][num][txt_sec][0] || '&nbsp;'}</div>` : '') + verses.map(x=>`<p${x==='' ? ' class="invisible"' : ''}>${x}</p>`).join('');
+				(z[0]==='Пс' && data.psalms[n[0]] ? `<abbr title="${data.psalms[n[0]]['ru'][hasHeader ? 1 : 0][n[1]-1]}">${z[1]}</abbr>`: z[1]);}).
+			join('; ') + '.');
+	// возвращаем сформированный html-фрагмент
+	return (hasHeader ? `<div>${data[data_sec][num][txt_sec][0] || '&nbsp;'}</div>` : '') +
+		verses.map(x=>`<p${x==='' ? ' class="invisible"' : ''}>${x}</p>`).join('');
 }
 
 function formSectionContent(data_sec, num) {
