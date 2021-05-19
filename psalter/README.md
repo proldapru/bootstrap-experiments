@@ -29,7 +29,11 @@
 - Вывод содержимого атрибута тега в content псевдоэлемента ::before (CSS-функция attr()).
 - CSS-позиционирование псевдоэлемента ::before (position:relative у основного элемента, position:absolute у :: before).
 - position:fixed для строки с заголовками столбцов.
-- CSS-функция var() для {color: var(--bs-dark);}
+- CSS-функция var() для {color: var(--bs-dark);}.
+
+## JavaScript
+- Работа с Cookie.
+- Статический метод Object.fromEntries().
 
 ## Ссылки
 ### Тексты

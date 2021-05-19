@@ -135,7 +135,7 @@
 					</div>
 				</div>
 				<div class="row" data-type="ctrls">
-					<div class="col mb-3 show-columls-ctrls">
+					<div class="col mb-3 show-columns-ctrls">
 						<div class="form-check form-switch">
 							<input class="form-check-input" type="checkbox" autocomplete="off" id="cuShowCtrl" checked>
 							<label class="form-check-label" for="cuShowCtrl">На церковнославянском</label>
@@ -176,8 +176,8 @@
 <div class="container-fluid p-4" id="mainContent">
 
 	<div class="row bg-white px-3" data-type="header">
-		<div class="col txt-cu text-truncate"><div class="alert alert-primary text-truncate" role="alert">На церковнославянском</div></div>
-		<div class="col txt-cf text-truncate"><div class="alert alert-primary text-truncate" role="alert">Гражданским шрифтом</div></div>
+		<div class="col txt-cu text-truncate" style="display:none;"><div class="alert alert-primary text-truncate" role="alert">На церковнославянском</div></div>
+		<div class="col txt-cf text-truncate" style="display:none;"><div class="alert alert-primary text-truncate" role="alert">Гражданским шрифтом</div></div>
 		<div class="col txt-ru text-truncate" style="display:none;"><div class="alert alert-primary text-truncate" role="alert">На русском (Синодальный перевод)</div></div>
 		<div class="col txt-ln text-truncate" style="display:none;"><div class="alert alert-primary text-truncate" role="alert">Параллельные места</div></div>
 	</div>
@@ -191,19 +191,22 @@ $(document).ready(function() {
 	// Объект bootstrap.Collapse (для вызова методов)
 	let ctrlPanelCollapse = new bootstrap.Collapse($('#navbarCtrlPanel')[0], {toggle:false});
 
-	$('.show-columls-ctrls input').on('change', function(ev) {
+	$('.show-columns-ctrls input').on('change', function(ev) {
 		$('.txt-' + ev.target.id.substr(0, 2)).toggle(ev.target.checked);
 		$(window).trigger('resize');
+		setCookie('ctrls');
 	});
 
 	$('.view-ctrls #noWrapCtrl').on('change', function(ev) {
-		$('body').toggleClass('wrap');
+		$('body').toggleClass('wrap', !ev.target.checked);
 		$(window).trigger('resize');
+		setCookie('ctrls');
 	});
 
 	$('.view-ctrls #colHeadersCtrl').on('change', function(ev) {
 		$('[data-type=header]').toggle(ev.target.checked);
 		$('[data-type=header-spacer]').toggle(ev.target.checked);
+		setCookie('ctrls');
 	});
 
 	$('.view-ctrls #pVersesCtrl').on('change', function(ev) {
@@ -213,6 +216,7 @@ $(document).ready(function() {
 			$(this).parent().parent().children('div.txt').children('p:nth-child(' + ($(this).index() + 1) + ')').removeClass('bg-gray');
 		})
 		else $('[data-type=psalm] div.txt p').off('mouseenter mouseleave');
+		setCookie('ctrls');
 	});
 
 	$('.content-ctrls #contentSelectCtrl').on('change', function(ev) {
@@ -227,6 +231,8 @@ $(document).ready(function() {
 
 		// Закрыть панель управления
 		ctrlPanelCollapse.hide();
+		$(window).trigger('resize');
+		$('.view-ctrls #pVersesCtrl').trigger('change');
 	});
 
 	$(window).on('resize', function(ev) {
@@ -261,9 +267,19 @@ $(document).ready(function() {
 		}
 	});
 
+	// Обработка cookie 'ctrls'
+	let ctrls = getCookie('ctrls').split('-');
+	if(ctrls.length===3) {
+		$('.content-ctrls #contentSelectCtrl').val(ctrls[0]);
+		let colCtrls = Object.fromEntries(ctrls[1].split('').map((x, ind)=>[['cu','cf','ru','ln'][ind], x*1]));
+		for(let i in colCtrls) $(`#${i}ShowCtrl`).prop('checked', colCtrls[i]);
+		let viewCtrls = Object.fromEntries(ctrls[2].split('').map((x, ind)=>[['noWrap','colHeaders','pVerses'][ind], x*1]));
+		for(let i in viewCtrls) $(`#${i}Ctrl`).prop('checked', viewCtrls[i]);
+	}
 	// При загрузке отработать события
+	$('.show-columns-ctrls input').trigger('change');
+	$('.view-ctrls input').trigger('change');
 	$('.content-ctrls #contentSelectCtrl').trigger('change');
-	$(window).trigger('resize');
 });
 
 function formSectionTextContent(data_sec, num, txt_sec) {
@@ -288,6 +304,18 @@ function formSectionContent(data_sec, num) {
 <div class="col txt txt-cf"${$('#cfShowCtrl')[0].checked ? '' : ' style="display:none;"'}>${formSectionTextContent(data_sec, num, 'cf')}</div>
 <div class="col txt txt-ru"${$('#ruShowCtrl')[0].checked ? '' : ' style="display:none;"'}>${formSectionTextContent(data_sec, num, 'ru')}</div>
 <div class="col txt txt-ln"${$('#lnShowCtrl')[0].checked ? '' : ' style="display:none;"'}>${formSectionTextContent(data_sec, num, 'ln')}</div></div>`
+}
+
+function getCookie(cName) {
+	let c = decodeURIComponent(document.cookie).split(';').map(x=>x.trim()).find(x=>x.startsWith(cName+'='));
+	return c ? c.substr(cName.length+1) : '';
+}
+
+function setCookie(cName, cValue) {
+	if(cName==='ctrls')	cValue = $('.content-ctrls select').val() + '-' +
+		$('.show-columns-ctrls input').map(function(){return $(this).prop('checked') ? 1 : 0}).get().join('') + '-' +
+		$('.view-ctrls input').map(function(){return $(this).prop('checked') ? 1 : 0}).get().join('');
+	if(getCookie(cName)!==cValue) document.cookie = `${cName}=${cValue};sameSite=Lax`;
 }
 
 const data = {
