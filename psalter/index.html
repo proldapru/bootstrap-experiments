@@ -74,7 +74,7 @@
 
 		body.wrap .txt div, body.wrap .txt p {
 			display: block;
-			margin-bottom: 1em; 
+			margin-bottom: 6px; 
 		}
 
 		.txt p::before {
@@ -99,11 +99,14 @@
 			content: " " counter(cnt) " ";
 		}
 
-
 		@counter-style cu-numbers {
 			system: fixed;
 			symbols: а҃ в҃ г҃ д҃ є҃ ѕ҃ з҃ и҃ ѳ҃ і҃ а҃і в҃і г҃і д҃і є҃і ѕ҃і з҃і и҃і ѳ҃і к҃а к҃в к҃г к҃д к҃є к҃s к҃з к҃и к҃ѳ л҃;
 			suffix: " ";
+		}
+
+		.bg-gray {
+			background-color: #dee2e6;
 		}
 	</style>
 </head>
@@ -159,6 +162,10 @@
 							<input class="form-check-input" type="checkbox" autocomplete="off" id="colHeadersCtrl" checked>
 							<label class="form-check-label" for="colHeadersCtrl">Отображать заголовки</label>
 						</div>
+						<div class="form-check form-switch">
+							<input class="form-check-input" type="checkbox" autocomplete="off" id="pVersesCtrl">
+							<label class="form-check-label" for="pVersesCtrl">Подсвечивать параллельные стихи</label>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -199,6 +206,15 @@ $(document).ready(function() {
 		$('[data-type=header-spacer]').toggle(ev.target.checked);
 	});
 
+	$('.view-ctrls #pVersesCtrl').on('change', function(ev) {
+		if(ev.target.checked) $('[data-type=psalm] div.txt p').hover(function() {
+			$(this).parent().parent().children('div.txt').children('p:nth-child(' + ($(this).index() + 1) + ')').addClass('bg-gray');
+		}, function() {
+			$(this).parent().parent().children('div.txt').children('p:nth-child(' + ($(this).index() + 1) + ')').removeClass('bg-gray');
+		})
+		else $('[data-type=psalm] div.txt p').off('mouseenter mouseleave');
+	});
+
 	$('.content-ctrls #contentSelectCtrl').on('change', function(ev) {
 		let v = $(ev.target).val();
 		$('#mainContent [data-type=header-spacer]').nextAll().remove();
@@ -234,7 +250,7 @@ $(document).ready(function() {
 				// Назначаем максимальную вычисленную высоту всем строкам стихов
 				for(let i=0; i<lineMaxHeights.length; i++) {
 					for(let j=0; j<cols.length; j++) {
-						$(cols[j]).children().eq(i).outerHeight(lineMaxHeights[i], true);
+						$(cols[j]).children().eq(i).outerHeight(lineMaxHeights[i]);
 					}
 				}
 			});

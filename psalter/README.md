@@ -16,8 +16,8 @@
 - Utilities: Text: fs-4, lh-1 (текст в navbar-brand).
 
 ### jQuery
-- Событие $(window).on('resize').
-- Метод nextAll().
+- События $(window).on('resize'), hover().
+- Методы nextAll(), index().
 
 ### HTML
 - Тег &lt;abbr&gt;.
