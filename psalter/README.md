@@ -18,6 +18,7 @@
 ### jQuery
 - События $(window).on('resize'), hover().
 - Методы nextAll(), index().
+- Метод .prop('checked') для проверки и установки статуса checkbox.
 
 ### HTML
 - Тег &lt;abbr&gt;.
