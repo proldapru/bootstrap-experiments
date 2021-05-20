@@ -14,6 +14,10 @@
 - Utilities: Visibility: invisible.
 - Utilities: Flex: d-flex + align-items-center (размещение логотипа).
 - Utilities: Text: fs-4, lh-1 (текст в navbar-brand).
+- Components: Navbar: fixed-bottom (для Cookie-баннера).
+- Components: Close button: btn-close (для Cookie-баннера).
+- Utilities: Borders: rounded-0 (для Cookie-баннера).
+- Utilities: Float: float-end (для Cookie-баннера).
 
 ### jQuery
 - События $(window).on('resize'), hover().

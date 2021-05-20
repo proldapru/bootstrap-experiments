@@ -185,7 +185,14 @@
 	<div class="row" data-type="header-spacer"></div>
 
 </div>
-	
+<!-- Cookie Banner -->
+<div class="fixed-bottom alert alert-dark text-center rounded-0 mb-0" role="alert" id="cookieBanner" style="display:none;">
+	Эта страница использует Cookie, чтобы запомнить выбранные вами настройки. Персональные данные не собираются.
+	<button type="button" class="btn btn-primary btn-sm ms-3" onclick="acceptCookie(1)">Понятно</button>
+	<button type="button" class="btn-close btn-sm float-end mt-1" aria-label="Close" onclick="acceptCookie(0)"></button>
+</div>
+<!-- End of Cookie Banner -->
+
 <script type="text/javascript">
 $(document).ready(function() {
 	// Объект bootstrap.Collapse (для вызова методов)
@@ -280,6 +287,8 @@ $(document).ready(function() {
 	$('.show-columns-ctrls input').trigger('change');
 	$('.view-ctrls input').trigger('change');
 	$('.content-ctrls #contentSelectCtrl').trigger('change');
+	// При необходимости показать cookie banner
+	if(getCookie('accept_cookie')!=='1') $('#cookieBanner').show();
 });
 
 function formSectionTextContent(data_sec, num, txt_sec) {
@@ -316,6 +325,11 @@ function setCookie(cName, cValue) {
 		$('.show-columns-ctrls input').map(function(){return $(this).prop('checked') ? 1 : 0}).get().join('') + '-' +
 		$('.view-ctrls input').map(function(){return $(this).prop('checked') ? 1 : 0}).get().join('');
 	if(getCookie(cName)!==cValue) document.cookie = `${cName}=${cValue};sameSite=Lax`;
+}
+
+function acceptCookie(state) {
+	if(state) setCookie('accept_cookie', 1);
+	$('#cookieBanner').hide();
 }
 
 const data = {
